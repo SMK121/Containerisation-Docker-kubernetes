@@ -1,7 +1,7 @@
 # Custom Nginx Docker Image 
 ## Overview
 
-This project demonstrates how to automate the customisation of the default Nginx webpage using a Dockerfile.
+This task demonstrates how to automate the customisation of the default Nginx webpage using a Dockerfile.
 
 Instead of manually entering a running Nginx container and editing the default `index.html` file, a Dockerfile is used to automatically build a custom Nginx Docker image containing a personalised webpage.
 
