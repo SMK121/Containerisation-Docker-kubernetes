@@ -1,5 +1,5 @@
 # Custom Nginx Docker Image 
-## Overview:
+## Overview
 
 This task demonstrates how to automate the customisation of the default Nginx webpage using a Dockerfile.
 
