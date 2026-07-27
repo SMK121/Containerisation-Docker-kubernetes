@@ -1,5 +1,4 @@
-# Custom Nginx Docker Image - Tech 610 Docker Simulation
-
+# Custom Nginx Docker Image 
 ## Overview
 
 This project demonstrates how to automate the customisation of the default Nginx webpage using a Dockerfile.
