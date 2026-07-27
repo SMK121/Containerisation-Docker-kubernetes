@@ -1,4 +1,4 @@
-# Custom Nginx Docker Image - Tech 610 Docker & Kubernetes Simulation
+# Custom Nginx Docker Image - Tech 610 Docker Simulation
 
 ## Overview
 
