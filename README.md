@@ -325,3 +325,11 @@ docker run -d -p 90:80 smk121/nginx-auto:v1
 ```
 
 This command runs the custom Tech 610 Nginx Docker container from Docker Hub.
+
+---
+
+# Custom Nginx Container Running
+
+https://github.com/user-attachments/assets/e386dcea-8333-4862-9769-5ce528da818f
+
+
