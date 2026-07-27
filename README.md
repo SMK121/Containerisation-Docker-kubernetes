@@ -336,3 +336,13 @@ The custom Nginx webpage running from the Docker container.
 ![Final Nginx Webpage](https://github.com/user-attachments/assets/e386dcea-8333-4862-9769-5ce528da818f)
 
 
+
+# Testing Docker Hub Image Pull
+
+To confirm the Docker image could be downloaded and run by another user, the local copy of the image was removed.
+
+The container was then started again:
+
+```bash
+docker run -d -p 90:80 smk121/nginx-auto:v1
+
