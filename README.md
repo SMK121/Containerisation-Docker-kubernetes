@@ -19,7 +19,7 @@ tech610-mod-nginx-dockerfile
 │
 ├── Dockerfile
 ├── index.html
-└── README.md
+
 ```
 
 ---
