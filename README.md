@@ -328,8 +328,12 @@ This command runs the custom Tech 610 Nginx Docker container from Docker Hub.
 
 ---
 
-# Custom Nginx Container Running
+---
 
-https://github.com/user-attachments/assets/e386dcea-8333-4862-9769-5ce528da818f
+# Final Nginx Webpage Output
+
+The custom Nginx webpage running from the Docker container.
+
+![Final Nginx Webpage](https://github.com/user-attachments/assets/e386dcea-8333-4862-9769-5ce528da818f)
 
 
