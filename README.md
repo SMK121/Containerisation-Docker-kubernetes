@@ -4,9 +4,9 @@
 
 This project demonstrates how to automate the customisation of the default Nginx webpage using a Dockerfile.
 
-Instead of manually entering a running Nginx container and editing the default `index.html` file, a Dockerfile is used to automatically build a custom Nginx image containing a personalised webpage.
+Instead of manually entering a running Nginx container and editing the default `index.html` file, a Dockerfile is used to automatically build a custom Nginx Docker image containing a personalised webpage.
 
-The final image is pushed to Docker Hub and can be run by anyone with Docker installed.
+The final image was pushed to Docker Hub and can be run by anyone with Docker installed.
 
 ---
 
@@ -19,7 +19,7 @@ tech610-mod-nginx-dockerfile
 │
 ├── Dockerfile
 ├── index.html
-
+└── README.md
 ```
 
 ---
@@ -28,11 +28,11 @@ tech610-mod-nginx-dockerfile
 
 A custom `index.html` file was created to replace the default Nginx landing page.
 
-The page was customised with:
+The webpage was customised with:
 
 - Matrix-style black background
 - Green terminal-style text
-- Tech 610 Docker & Kubernetes simulation information
+- Tech 610 Docker containerisation information
 
 Example:
 
@@ -40,13 +40,11 @@ Example:
 <h1>Welcome to the Matrix</h1>
 
 <p>
-This custom Nginx webpage was created as part of the Tech 610 Docker & Kubernetes simulation.
-</p>
-
-<p>
-The page was deployed automatically using a Dockerfile.
+The page was automatically deployed by creating a custom Docker image using a Dockerfile and running it as a container.
 </p>
 ```
+
+The custom HTML file replaces the default Nginx webpage.
 
 ---
 
@@ -60,9 +58,15 @@ FROM nginx:latest
 COPY index.html /usr/share/nginx/html/index.html
 ```
 
-## Dockerfile Explanation
+---
 
-### FROM nginx:latest
+# Dockerfile Explanation
+
+## FROM nginx:latest
+
+```Dockerfile
+FROM nginx:latest
+```
 
 Uses the official Nginx image from Docker Hub as the base image.
 
@@ -72,13 +76,25 @@ This provides:
 - Required Linux environment
 - Default Nginx configuration
 
+Instead of installing and configuring Nginx manually, an existing Nginx image is used.
+
 ---
 
-### COPY index.html /usr/share/nginx/html/index.html
+## COPY index.html /usr/share/nginx/html/index.html
+
+```Dockerfile
+COPY index.html /usr/share/nginx/html/index.html
+```
 
 Copies the custom webpage into the default Nginx web directory.
 
-The original Nginx page is replaced with the custom Tech 610 Matrix page.
+Nginx serves webpages from:
+
+```
+/usr/share/nginx/html
+```
+
+The default Nginx `index.html` file is replaced with the custom Tech 610 Matrix webpage.
 
 ---
 
@@ -90,12 +106,35 @@ The custom Docker image was built using:
 docker build -t smk121/nginx-auto:v1 .
 ```
 
-Explanation:
+## Command Explanation
 
-- `docker build` creates a new image
-- `-t` assigns a name and tag
-- `smk121/nginx-auto:v1` is the image name and version
-- `.` uses the current folder as the build context
+- `docker build`  
+  Creates a new Docker image using instructions from the Dockerfile.
+
+- `-t`  
+  Assigns a name and tag to the image.
+
+- `smk121/nginx-auto:v1`  
+  The image name and version tag.
+
+Breaking down the image name:
+
+```
+smk121
+|
+Docker Hub username
+
+nginx-auto
+|
+Image name
+
+v1
+|
+Version tag
+```
+
+- `.`  
+  Uses the current folder as the build context, allowing Docker to access the Dockerfile and index.html.
 
 ---
 
@@ -107,12 +146,14 @@ The created image was verified using:
 docker images
 ```
 
-Example output:
+Example:
 
 ```
 REPOSITORY             TAG
 smk121/nginx-auto      v1
 ```
+
+This confirms the custom Nginx image was successfully created.
 
 ---
 
@@ -124,13 +165,47 @@ The custom Nginx container was started using:
 docker run -d -p 90:80 smk121/nginx-auto:v1
 ```
 
-Explanation:
+## Command Explanation
 
-- `-d` runs the container in detached mode
-- `-p 90:80` maps local port 90 to container port 80
-- `smk121/nginx-auto:v1` is the custom Docker image
+### -d
 
-The webpage can then be accessed through:
+Runs the container in detached mode.
+
+The container runs in the background while allowing the terminal to continue being used.
+
+---
+
+### -p 90:80
+
+Maps a local machine port to the container port.
+
+Format:
+
+```
+HOST_PORT:CONTAINER_PORT
+```
+
+Example:
+
+```
+90:80
+```
+
+Means:
+
+```
+Computer Port 90
+        |
+        ↓
+Docker Container Port 80
+        |
+        ↓
+Nginx Web Server
+```
+
+Nginx listens on port 80 inside the container, while port 90 was used on the local machine to access the webpage.
+
+The webpage can be accessed through:
 
 ```
 http://localhost:90
@@ -146,13 +221,19 @@ Docker Hub login:
 docker login
 ```
 
+The image was tagged using the Docker Hub username:
+
+```bash
+docker tag smk121/nginx-auto:v1 smk121/nginx-auto:v1
+```
+
 The image was pushed using:
 
 ```bash
 docker push smk121/nginx-auto:v1
 ```
 
-The image is now available publicly through Docker Hub.
+The custom Docker image is now stored on Docker Hub and can be accessed by other users.
 
 ---
 
@@ -167,9 +248,9 @@ docker run -d -p 90:80 smk121/nginx-auto:v1
 Docker will:
 
 1. Pull the image from Docker Hub
-2. Create a container
+2. Create a Docker container
 3. Start the Nginx web server
-4. Display the custom webpage
+4. Display the custom Matrix webpage
 
 ---
 
@@ -177,30 +258,61 @@ Docker will:
 
 ## Manual Method
 
-Previously, the Nginx page could be changed by:
-
-1. Starting an Nginx container
-2. Entering the container
-3. Editing `/usr/share/nginx/html/index.html`
+The original method involved entering a running Nginx container and manually editing the webpage.
 
 Example:
 
-```
+```bash
 docker exec -it container_name bash
 ```
 
-This method is not easily repeatable.
+Then editing:
+
+```
+/usr/share/nginx/html/index.html
+```
+
+Problems with this approach:
+
+- Changes are manual
+- Difficult to repeat
+- Not easily shareable
+- Changes can be lost when the container is removed
 
 ---
 
-## Dockerfile Method
+# Dockerfile Method
 
 The Dockerfile approach:
 
-- Automates the configuration process
-- Creates a repeatable build process
+- Automates the Nginx configuration
+- Creates a repeatable image build process
 - Allows others to recreate the same environment
-- Supports CI/CD workflows
+- Makes the application portable
+- Supports future CI/CD workflows
+
+---
+
+# Verification
+
+The Docker Hub image was tested by running:
+
+```bash
+docker run -d -p 90:80 smk121/nginx-auto:v1
+```
+
+The webpage was successfully displayed:
+
+```
+Welcome to the Matrix
+```
+
+This confirmed:
+
+- Docker image built successfully
+- Docker Hub push worked
+- Container started correctly
+- Nginx served the custom webpage
 
 ---
 
@@ -212,4 +324,4 @@ The final command to run the custom image:
 docker run -d -p 90:80 smk121/nginx-auto:v1
 ```
 
-This command will run the custom Tech 610 Nginx Docker container.
+This command runs the custom Tech 610 Nginx Docker container from Docker Hub.
