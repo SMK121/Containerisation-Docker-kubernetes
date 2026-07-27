@@ -67,6 +67,9 @@ USER node
 EXPOSE 3000
 
 CMD ["node", "index.js"]
+
+```
+
 Dockerfile Explanation
 FROM node:20
 FROM node:20
