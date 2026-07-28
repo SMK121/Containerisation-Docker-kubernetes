@@ -1,0 +1,51 @@
+services:
+
+  # Node.js Tic Tac Toe application
+  # Uses the Docker image pushed to Docker Hub
+  app:
+    image: smk121/tech610-tttapp:1.2.0
+
+    # Access app through localhost:3000
+    ports:
+      - "3000:3000"
+
+    # Connect app to MongoDB container
+    # "mongo" is the service name of the database
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/ttt
+
+    # Start MongoDB before the app
+    depends_on:
+      - mongo
+
+
+  # Runs database seed script automatically
+  # Inserts initial data into MongoDB
+  seed:
+    image: smk121/tech610-tttapp:1.2.0
+    command: node seeds/seed.js
+
+    # Allows seed script to connect to MongoDB
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/ttt
+
+    depends_on:
+      - mongo
+
+
+  # MongoDB database service
+  mongo:
+    image: mongo:8
+
+    # MongoDB default port
+    ports:
+      - "27017:27017"
+
+    # Keeps database data after container restarts
+    volumes:
+      - mongo-data:/data/db
+
+
+# Persistent storage for MongoDB
+volumes:
+  mongo-data:
