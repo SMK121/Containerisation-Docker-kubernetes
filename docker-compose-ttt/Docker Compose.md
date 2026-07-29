@@ -19,7 +19,7 @@ docker compose up
 
 ---
 
-# Application Architecture
+# Application Architecture & Explanation
 
 The deployment contains three services:
 
@@ -51,6 +51,28 @@ The deployment contains three services:
         Runs database seed script
         Inserts initial data
 ```
+
+The application is deployed using **Docker Compose**, which manages multiple containers and enables communication between the services.
+
+### App Service (Node.js TTT App)
+- Runs the Tic Tac Toe application.
+- Exposes the application on **port 3000**.
+- Connects to MongoDB using the `MONGODB_URI` environment variable.
+
+### MongoDB Service
+- Runs the MongoDB database inside a separate container.
+- Uses **port 27017** for database communication.
+- Stores application data used by the Node.js app.
+
+### Persistent Volume (mongo-data)
+- Stores MongoDB data outside the container.
+- Ensures data is not lost when the MongoDB container is restarted or recreated.
+
+### Seed Service
+- Runs a seed script to insert initial database data.
+- Starts after MongoDB is available and exits once the data has been added.
+
+### Overall Flow
 
 ---
 
