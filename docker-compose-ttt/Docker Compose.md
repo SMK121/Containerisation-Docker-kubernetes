@@ -51,7 +51,7 @@ The deployment contains three services:
         Runs database seed script
         Inserts initial data
 ```
-
+---
 The application is deployed using **Docker Compose**, which manages multiple containers and enables communication between the services.
 
 ### App Service (Node.js TTT App)
