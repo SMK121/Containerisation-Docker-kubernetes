@@ -72,8 +72,6 @@ The application is deployed using **Docker Compose**, which manages multiple con
 - Runs a seed script to insert initial database data.
 - Starts after MongoDB is available and exits once the data has been added.
 
-### Overall Flow
-
 ---
 
 # Docker Images Used
